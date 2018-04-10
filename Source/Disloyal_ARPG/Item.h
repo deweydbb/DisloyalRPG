@@ -42,5 +42,8 @@ public:
 
 	UPROPERTY(BlueprintReadWrite, EditAnywhere)
 	FName ID;
+
+	UFUNCTION(BlueprintImplementableEvent, BlueprintCallable, Category = "OnUsed")
+		void used();
 	
 };
