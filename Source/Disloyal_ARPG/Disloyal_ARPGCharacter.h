@@ -48,9 +48,77 @@ public:
 	//UPROPERTY(Editanywhere, BlueprintReadWrite)
 		//bool bEquiped;
 
+	UPROPERTY(Editanywhere, BlueprintReadWrite)
+		int damage;
+
+	UPROPERTY(Editanywhere, BlueprintReadWrite)
+		int armor;
+
+	UPROPERTY(Editanywhere, BlueprintReadWrite)
+		int health;
+
+	UPROPERTY(Editanywhere, BlueprintReadWrite)
+		int mana;
 
 	bool operator==(const FInventoryItem & Item) const {
 		if (ItemID == Item.ItemID)
+			return true;
+		else return false;
+	}
+
+};
+
+USTRUCT(BlueprintType)
+struct FSkillHandler : public FTableRowBase {
+
+	GENERATED_BODY()
+
+public:
+
+	FSkillHandler() {
+		
+	}
+	UPROPERTY(Editanywhere, BlueprintReadWrite)
+		TSubclassOf<class ASkillParent> skill;
+
+	UPROPERTY(Editanywhere, BlueprintReadWrite)
+		FName SkillID;
+
+	UPROPERTY(Editanywhere, BlueprintReadWrite)
+		int damage;
+
+	UPROPERTY(Editanywhere, BlueprintReadWrite)
+		int armor;
+
+	UPROPERTY(Editanywhere, BlueprintReadWrite)
+		int heal;
+
+	UPROPERTY(Editanywhere, BlueprintReadWrite)
+		int mana;
+
+	UPROPERTY(Editanywhere, BlueprintReadWrite)
+		int radius;
+
+	UPROPERTY(Editanywhere, BlueprintReadWrite)
+		int range;
+
+	UPROPERTY(Editanywhere, BlueprintReadWrite)
+		int type;
+
+	UPROPERTY(Editanywhere, BlueprintReadWrite)
+		int duration;
+
+	UPROPERTY(Editanywhere, BlueprintReadWrite)
+		bool isUnlocked;
+
+	UPROPERTY(Editanywhere, BlueprintReadWrite)
+		bool isEquiped;
+
+	UPROPERTY(Editanywhere, BlueprintReadWrite)
+		UTexture2D* Thumbnail;
+
+	bool operator==(const FSkillHandler & Item) const {
+		if (SkillID == Item.SkillID)
 			return true;
 		else return false;
 	}
@@ -78,6 +146,18 @@ public:
 
 	void AddItemToInventoryById(FName ID);
 
+	UPROPERTY(Editanywhere, BlueprintReadWrite)
+	int health;
+
+	UPROPERTY(Editanywhere, BlueprintReadWrite)
+	int damage;
+
+	UPROPERTY(Editanywhere, BlueprintReadWrite)
+	int armor;
+
+	UPROPERTY(Editanywhere, BlueprintReadWrite)
+	int mana;
+
 	UPROPERTY(BlueprintReadWrite, EditAnywhere)
 		TArray<FInventoryItem> InventoryDBArray;
 
@@ -92,6 +172,9 @@ public:
 	FORCEINLINE class UDecalComponent* GetCursorToWorld() { return CursorToWorld; }
 	//called by player controller when clicked
 	void pickupItem(AItem* selectedItem);
+
+	UFUNCTION(BlueprintCallable, Category = "Skills")
+	void createSkill(FName id);
 
 	
 

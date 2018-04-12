@@ -102,6 +102,20 @@ void ADisloyal_ARPGCharacter::pickupItem(AItem * selectedItem)
 	}
 }
 
+void ADisloyal_ARPGCharacter::createSkill(FName id)
+{
+	ADisloyal_ARPGGameMode* GameMode = Cast<ADisloyal_ARPGGameMode>(GetWorld()->GetAuthGameMode());
+	UDataTable* ItemTable = GameMode->GetSkillHandlerDB();
+
+	FSkillHandler* ItemToAdd = ItemTable->FindRow<FSkillHandler>(id, "");
+
+	if (ItemToAdd) {
+		if (ItemToAdd->type == 0) {
+			
+		}
+	}
+}
+
 
 void ADisloyal_ARPGCharacter::AddToInv(AItem* selectedItem)
 {
@@ -121,7 +135,6 @@ void ADisloyal_ARPGCharacter::AddItemToInventoryById(FName ID)
 	FInventoryItem* ItemToAdd = ItemTable->FindRow<FInventoryItem>(ID, "");
 
 	if (ItemToAdd) {
-		UE_LOG(LogTemp, Warning, TEXT("Your asdfsdagda"));
 		InventoryDBArray.Add(*ItemToAdd);
 	}
 }

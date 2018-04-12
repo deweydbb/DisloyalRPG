@@ -18,12 +18,17 @@ public:
 	class UDataTable* GetItemDB() const { return ItemDB; }
 
 	class UDataTable* GetEquipedItemDB() const { return ItemDB; }
+
+	class UDataTable* GetSkillHandlerDB() const { return SkillHandlerDB; }
 protected:
 	UPROPERTY(EditDefaultsOnly)
 		class UDataTable* ItemDB;
 
 	UPROPERTY(EditDefaultsOnly)
 		class UDataTable* EquipedItemDB;
+
+	UPROPERTY(EditDefaultsOnly)
+		class UDataTable* SkillHandlerDB;
 };
 
 
