@@ -1,6 +1,13 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 #include "SkillParent.h"
+#include "Disloyal_ARPG.h"
+#include <string>
+#include "Net/UnrealNetwork.h"
+#include "Item.h"
+#include "Runtime/Engine/Classes/Components/SphereComponent.h"
+#include "GameFramework/ProjectileMovementComponent.h"
+#include "Runtime/Core/Public/Containers/UnrealString.h"
 
 
 // Sets default values
@@ -9,20 +16,50 @@ ASkillParent::ASkillParent()
  	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
 
+	CollisionComp = CreateDefaultSubobject<USphereComponent>(TEXT("SphereComp"));
+	CollisionComp->InitSphereRadius(5.0f);
+	CollisionComp->BodyInstance.SetCollisionProfileName("Skill");
+	CollisionComp->OnComponentHit.AddDynamic(this, &ASkillParent::OnHit);
+
+	CollisionComp->SetWalkableSlopeOverride(FWalkableSlopeOverride(WalkableSlope_Unwalkable, 0.f));
+	CollisionComp->CanCharacterStepUpOn = ECB_No;
+
+	//set Root
+	RootComponent = CollisionComp;
+
+	//movement component controls
+	SkillMovement = CreateDefaultSubobject<UProjectileMovementComponent>(TEXT("SkillMoveComp"));
+	SkillMovement->UpdatedComponent = CollisionComp;
+	SkillMovement->InitialSpeed = 0.f;
+	SkillMovement->MaxSpeed = 500.f;
+	SkillMovement->bRotationFollowsVelocity = true;
+	SkillMovement->bShouldBounce = false;
+
+	//use to change duration
+	InitialLifeSpan = 10.0f;
+
 }
 
 // Called when the game starts or when spawned
-void ASkillParent::BeginPlay()
-{
-	Super::BeginPlay();
-	
-}
 
 // Called every frame
 void ASkillParent::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
+}
+
+void ASkillParent::OnHit(UPrimitiveComponent * HitComp, AActor * OtherActor, UPrimitiveComponent * OtherComp, FVector NormalImpulse, const FHitResult & Hit)
+{
+	if (OtherActor->IsA<AItem>()) {
+		AItem* HitItem = Cast<AItem>(OtherActor);
+
+		HitItem->health = HitItem->health - 10;
+		UE_LOG(LogTemp, Warning, TEXT("Items's Health is %d"), HitItem->health);
+		if (HitItem->health <= 0) {
+			HitItem->Destroy();
+		}
+	}
 }
 
 int ASkillParent::getDamage()

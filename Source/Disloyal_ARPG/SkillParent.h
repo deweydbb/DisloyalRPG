@@ -2,16 +2,24 @@
 
 #pragma once
 
-#include "CoreMinimal.h"
+#include "Core.h"
 #include "GameFramework/Actor.h"
 #include "SkillParent.generated.h"
 
-UCLASS()
-class DISLOYAL_ARPG_API ASkillParent : public AActor
+UCLASS(config=Game)
+class ASkillParent : public AActor
 {
 	GENERATED_BODY()
 	
 public:	
+
+	UPROPERTY(VisibleDefaultsOnly, Category = Skill)
+		class USphereComponent* CollisionComp;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Movement, meta = (AllowPrivateAccess = "true"))
+		class UProjectileMovementComponent* SkillMovement;
+
+public:
 	// Sets default values for this actor's properties
 	ASkillParent();
 
@@ -43,9 +51,7 @@ public:
 
 	int setRange(int n);
 
-protected:
 	// Called when the game starts or when spawned
-	virtual void BeginPlay() override;
 
 	UPROPERTY(Editanywhere, BlueprintReadWrite)
 	UTexture2D* Thumbnail;
@@ -80,6 +86,13 @@ public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
-	
+	UFUNCTION()
+		void OnHit(UPrimitiveComponent* HitComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, FVector NormalImpulse, const FHitResult& Hit);
+
+	/** Returns CollisionComp subobject **/
+	FORCEINLINE class USphereComponent* GetCollisionComp() const { return CollisionComp; }
+	/** Returns ProjectileMovement subobject **/
+	FORCEINLINE class UProjectileMovementComponent* GetProjectileMovement() const { return SkillMovement; }
+
 	
 };

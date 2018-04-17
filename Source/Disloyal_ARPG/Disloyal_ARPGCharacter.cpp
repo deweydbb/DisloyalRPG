@@ -5,6 +5,8 @@
 #include "UObject/ConstructorHelpers.h"
 #include "Camera/CameraComponent.h"
 #include "Components/DecalComponent.h"
+#include "AI/Navigation/NavigationSystem.h"
+#include "SkillParent.h"
 #include "Components/CapsuleComponent.h"
 #include "GameFramework/CharacterMovementComponent.h"
 #include "GameFramework/PlayerController.h"
@@ -111,7 +113,22 @@ void ADisloyal_ARPGCharacter::createSkill(FName id)
 
 	if (ItemToAdd) {
 		if (ItemToAdd->type == 0) {
+
+			UWorld* const World = GetWorld();
+
+			FHitResult Hit;
+
+			APlayerController* PC = Cast<APlayerController>(GetController());
+
+			PC->GetHitResultUnderCursor(ECC_Visibility, false, Hit);
+
+			FVector SkillLoc = Hit.ImpactPoint;
+
+			FRotator SpawnRotation = FRotator(0, 0, 0);
+			FActorSpawnParameters ActorSpawnParams;
+			ActorSpawnParams.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AdjustIfPossibleButDontSpawnIfColliding;
 			
+			ASkillParent* Skill = World->SpawnActor<ASkillParent>(ItemToAdd->skill, SkillLoc, SpawnRotation, ActorSpawnParams);
 		}
 	}
 }
