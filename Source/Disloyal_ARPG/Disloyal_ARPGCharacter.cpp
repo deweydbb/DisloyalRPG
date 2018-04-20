@@ -129,6 +129,7 @@ void ADisloyal_ARPGCharacter::createSkill(FName id)
 			ActorSpawnParams.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AdjustIfPossibleButDontSpawnIfColliding;
 			
 			ASkillParent* Skill = World->SpawnActor<ASkillParent>(ItemToAdd->skill, SkillLoc, SpawnRotation, ActorSpawnParams);
+			UE_LOG(LogTemp, Warning, TEXT("Skillcreated"));
 		}
 	}
 }

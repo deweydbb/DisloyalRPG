@@ -51,6 +51,7 @@ void ASkillParent::Tick(float DeltaTime)
 
 void ASkillParent::OnHit(UPrimitiveComponent * HitComp, AActor * OtherActor, UPrimitiveComponent * OtherComp, FVector NormalImpulse, const FHitResult & Hit)
 {
+	UE_LOG(LogTemp, Warning, TEXT("OnHIt bing called"));
 	if (OtherActor->IsA<AItem>()) {
 		AItem* HitItem = Cast<AItem>(OtherActor);
 
