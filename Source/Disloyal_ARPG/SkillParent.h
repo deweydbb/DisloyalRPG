@@ -13,7 +13,7 @@ class ASkillParent : public AActor
 	
 public:	
 
-	UPROPERTY(EditDefaultsOnly, Category = Skill)
+	UPROPERTY(BlueprintReadWrite, VisibleAnywhere, Category = Skill)
 		class USphereComponent* CollisionComp;
 
 
