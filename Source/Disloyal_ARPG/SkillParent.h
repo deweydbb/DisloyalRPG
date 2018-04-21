@@ -13,8 +13,9 @@ class ASkillParent : public AActor
 	
 public:	
 
-	UPROPERTY(VisibleDefaultsOnly, Category = Skill)
+	UPROPERTY(EditDefaultsOnly, Category = Skill)
 		class USphereComponent* CollisionComp;
+
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Movement, meta = (AllowPrivateAccess = "true"))
 		class UProjectileMovementComponent* SkillMovement;

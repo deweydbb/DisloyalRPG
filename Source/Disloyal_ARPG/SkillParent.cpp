@@ -17,7 +17,7 @@ ASkillParent::ASkillParent()
 	PrimaryActorTick.bCanEverTick = true;
 
 	CollisionComp = CreateDefaultSubobject<USphereComponent>(TEXT("SphereComp"));
-	CollisionComp->InitSphereRadius(5.0f);
+	CollisionComp->InitSphereRadius(230.0f);
 	CollisionComp->BodyInstance.SetCollisionProfileName("Skill");
 	CollisionComp->OnComponentHit.AddDynamic(this, &ASkillParent::OnHit);
 
@@ -51,12 +51,12 @@ void ASkillParent::Tick(float DeltaTime)
 
 void ASkillParent::OnHit(UPrimitiveComponent * HitComp, AActor * OtherActor, UPrimitiveComponent * OtherComp, FVector NormalImpulse, const FHitResult & Hit)
 {
-	UE_LOG(LogTemp, Warning, TEXT("OnHIt bing called"));
-	if (OtherActor->IsA<AItem>()) {
+	//UE_LOG(LogTemp, Warning, TEXT("OnHIt bing called"));
+	if (OtherActor->IsA(AItem::StaticClass())) {
 		AItem* HitItem = Cast<AItem>(OtherActor);
-
-		HitItem->health = HitItem->health - 10;
 		UE_LOG(LogTemp, Warning, TEXT("Items's Health is %d"), HitItem->health);
+		HitItem->health = HitItem->health - 10;
+		
 		if (HitItem->health <= 0) {
 			HitItem->Destroy();
 		}
