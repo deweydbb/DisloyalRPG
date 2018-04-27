@@ -20,6 +20,10 @@ ASkillParent::ASkillParent()
 	CollisionComp->InitSphereRadius(230.0f);
 	CollisionComp->BodyInstance.SetCollisionProfileName("Skill");
 	CollisionComp->OnComponentHit.AddDynamic(this, &ASkillParent::OnHit);
+	//for skill overlap
+	CollisionComp->OnComponentBeginOverlap.AddDynamic(this, &ASkillParent::BeginComponentOverlap);
+
+	CollisionComp->OnComponentEndOverlap.AddDynamic(this, &ASkillParent::EndComponentOverlap);
 
 	CollisionComp->SetWalkableSlopeOverride(FWalkableSlopeOverride(WalkableSlope_Unwalkable, 0.f));
 	CollisionComp->CanCharacterStepUpOn = ECB_No;
@@ -30,7 +34,7 @@ ASkillParent::ASkillParent()
 	//movement component controls
 	SkillMovement = CreateDefaultSubobject<UProjectileMovementComponent>(TEXT("SkillMoveComp"));
 	SkillMovement->UpdatedComponent = CollisionComp;
-	SkillMovement->InitialSpeed = 0.f;
+	SkillMovement->InitialSpeed = 10.f;
 	SkillMovement->MaxSpeed = 500.f;
 	SkillMovement->bRotationFollowsVelocity = true;
 	SkillMovement->bShouldBounce = false;
@@ -51,16 +55,18 @@ void ASkillParent::Tick(float DeltaTime)
 
 void ASkillParent::OnHit(UPrimitiveComponent * HitComp, AActor * OtherActor, UPrimitiveComponent * OtherComp, FVector NormalImpulse, const FHitResult & Hit)
 {
-	//UE_LOG(LogTemp, Warning, TEXT("OnHIt bing called"));
-	if (OtherActor->IsA(AItem::StaticClass())) {
-		AItem* HitItem = Cast<AItem>(OtherActor);
-		UE_LOG(LogTemp, Warning, TEXT("Items's Health is %d"), HitItem->health);
-		HitItem->health = HitItem->health - 10;
-		
-		if (HitItem->health <= 0) {
-			HitItem->Destroy();
-		}
-	}
+
+
+}
+
+void ASkillParent::BeginComponentOverlap(UPrimitiveComponent * HitComp, AActor * OtherActor, UPrimitiveComponent * OtherComp, int32 inter, bool booler, const FHitResult & Hit)
+{
+	UE_LOG(LogTemp, Warning, TEXT("We Started"));
+}
+
+void ASkillParent::EndComponentOverlap(UPrimitiveComponent * HitComp, AActor * OtherActor, UPrimitiveComponent * OtherComp, int32 inter)
+{
+
 }
 
 int ASkillParent::getDamage()
