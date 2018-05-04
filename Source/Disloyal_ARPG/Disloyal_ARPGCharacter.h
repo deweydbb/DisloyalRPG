@@ -117,6 +117,9 @@ public:
 	UPROPERTY(Editanywhere, BlueprintReadWrite)
 		UTexture2D* Thumbnail;
 
+	UPROPERTY(Editanywhere, BlueprintReadWrite)
+		UParticleSystem* ParticleSystem;
+
 	bool operator==(const FSkillHandler & Item) const {
 		if (SkillID == Item.SkillID)
 			return true;
