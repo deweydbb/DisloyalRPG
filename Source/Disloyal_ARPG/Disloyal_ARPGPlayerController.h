@@ -23,6 +23,9 @@ public:
 
 	void InteractStart();
 
+	UFUNCTION(BlueprintCallable, Category = ActorHit)
+		AActor* GetMousedOverPawn();
+
 
 protected:
 	/** True if the controlled character should navigate to the mouse cursor. */

@@ -35,6 +35,17 @@ void ADisloyal_ARPGPlayerController::InteractStart()
 	}
 }
 
+AActor* ADisloyal_ARPGPlayerController::GetMousedOverPawn()
+{
+	InteractStart();
+	if (actorHit) {
+		return actorHit;
+	}
+	else {
+		return NULL;
+	}
+}
+
 
 
 void ADisloyal_ARPGPlayerController::PlayerTick(float DeltaTime)
