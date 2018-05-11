@@ -23,21 +23,36 @@ void ADisloyal_ARPGPlayerController::InteractStart()
 		//cast the thing hit to a string ofr printing
 
 		actorHit = Hit.GetActor();
-
+		UE_LOG(LogTemp, Warning, TEXT("Just Started Function"));
+		//Define different object classes to interact with
+		/*All interactable classes will haave uniform function to start interaction besides Item called InteractStarted*/
 		if (actorHit->IsA(AItem::StaticClass())) {
 			//go to player and cal pickup item on player
 			if (ADisloyal_ARPGCharacter* MyPawn = Cast<ADisloyal_ARPGCharacter>(GetPawn())) {
 				//tell player to call the titems pickup() fucntion
-				MyPawn->pickupItem(Cast<AItem>(actorHit));				
-			}
-			
+				MyPawn->pickupItem(Cast<AItem>(actorHit));	
+				UE_LOG(LogTemp, Warning, TEXT("Your message"));
+			}	
 		}
+		//else if () {
+
+		//}
 	}
 }
 
 AActor* ADisloyal_ARPGPlayerController::GetMousedOverPawn()
 {
-	InteractStart();
+	// Trace to see what is under the mouse cursor
+	FHitResult Hit;
+	GetHitResultUnderCursor(ECC_Visibility, false, Hit);
+
+	if (Hit.bBlockingHit)
+	{
+		//cast the thing hit to a string ofr printing
+
+		actorHit = Hit.GetActor();
+	}
+
 	if (actorHit) {
 		return actorHit;
 	}
