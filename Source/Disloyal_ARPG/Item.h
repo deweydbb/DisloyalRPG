@@ -38,12 +38,14 @@ public:
 	int mana;
 
 	UPROPERTY(BlueprintReadWrite, EditAnywhere)
-	FName name;
+	FText name;
 
 	UPROPERTY(BlueprintReadWrite, EditAnywhere)
 	FName ID;
 
 	UFUNCTION(BlueprintImplementableEvent, BlueprintCallable, Category = "OnUsed")
 		void used();
-	
+
+	UFUNCTION(BlueprintCallable, Category = Default)
+		void inheritFromDataTable(FName givenID);
 };

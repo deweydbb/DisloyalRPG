@@ -7,6 +7,7 @@
 #include "Components/DecalComponent.h"
 #include "AI/Navigation/NavigationSystem.h"
 #include "SkillParent.h"
+#include "NPC_Character.h"
 #include "Components/CapsuleComponent.h"
 #include "GameFramework/CharacterMovementComponent.h"
 #include "GameFramework/PlayerController.h"
@@ -129,9 +130,27 @@ void ADisloyal_ARPGCharacter::createSkill(FName id)
 			FActorSpawnParameters ActorSpawnParams;
 			ActorSpawnParams.SpawnCollisionHandlingOverride = bNoCollisionFail ? ESpawnActorCollisionHandlingMethod::AlwaysSpawn : ESpawnActorCollisionHandlingMethod::AdjustIfPossibleButDontSpawnIfColliding;
 			
-			ASkillParent* Skill = World->SpawnActor<ASkillParent>(ItemToAdd->skill, SkillLoc, SpawnRotation, ActorSpawnParams);
+			ASkillParent* Skill = World->SpawnActor<ASkillParent>(ItemToAdd->skill, mousePosition, SpawnRotation, ActorSpawnParams);
 			Skill->SkillID = ItemToAdd->SkillID;
 			//UE_LOG(LogTemp, Warning, TEXT("Skillcreated"));
+		}
+
+		if (ItemToAdd->type == 1) {
+			UWorld* const World = GetWorld();
+
+			FHitResult Hit;
+
+			APlayerController* PC = Cast<APlayerController>(GetController());
+
+			PC->GetHitResultUnderCursor(ECC_Visibility, false, Hit);
+
+			AActor* HitActor = Hit.GetActor();
+
+			if (HitActor->IsA(ANPC_Character::StaticClass())) {
+				ANPC_Character* HitAI = Cast<ANPC_Character>(HitActor);
+
+				HitAI->health = HitAI->health - (ItemToAdd->damage - ItemToAdd->armor * 0.2);
+			}
 		}
 	}
 }

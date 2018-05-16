@@ -2,6 +2,7 @@
 
 #include "Item.h"
 #include "Disloyal_ARPGCharacter.h"
+#include"Disloyal_ARPGGameMode.h"
 
 
 // Sets default values
@@ -31,6 +32,17 @@ void AItem::pickUp()
 	}
 }
 
+void AItem::inheritFromDataTable(FName givenID) {
+	ADisloyal_ARPGGameMode* GameMode = Cast<ADisloyal_ARPGGameMode>(GetWorld()->GetAuthGameMode());
+	UDataTable* ItemTable = GameMode->GetItemDB();
+
+	FInventoryItem* ItemToAdd = ItemTable->FindRow<FInventoryItem>(givenID, "");
+	health = ItemToAdd->health;
+	damage = ItemToAdd->damage;
+	armor = ItemToAdd->armor;
+	mana = ItemToAdd->mana;
+	name = ItemToAdd->Name;
+}
 
 // Called every frame
 

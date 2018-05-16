@@ -161,6 +161,9 @@ public:
 	UPROPERTY(Editanywhere, BlueprintReadWrite)
 	int mana;
 
+	UPROPERTY(Editanywhere, BlueprintReadWrite)
+		FVector mousePosition;
+
 	UPROPERTY(BlueprintReadWrite, EditAnywhere)
 		TArray<FInventoryItem> InventoryDBArray;
 

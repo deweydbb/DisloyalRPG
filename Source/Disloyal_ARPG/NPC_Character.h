@@ -18,6 +18,8 @@ public:
 	UPROPERTY(EditAnywhere, Category = Behavior)
 		class UBehaviorTree* BehaviorTree;
 
+	UPROPERTY(BlueprintReadWrite, EditAnywhere)
+		int health;
 
 protected:
 	// Called when the game starts or when spawned
