@@ -52,6 +52,9 @@ public:
 
 	int setRange(int n);
 
+	UFUNCTION(BlueprintCallable, Category = "Skills")
+		void inheritVarFromDB(FName id);
+
 	// Called when the game starts or when spawned
 
 	UPROPERTY(Editanywhere, BlueprintReadWrite)
@@ -80,6 +83,9 @@ public:
 
 	UPROPERTY(Editanywhere, BlueprintReadWrite)
 		int range;
+
+	UPROPERTY(Editanywhere, BlueprintReadWrite)
+		int SkillType;
 
 	
 

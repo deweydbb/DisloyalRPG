@@ -59,6 +59,8 @@ ADisloyal_ARPGCharacter::ADisloyal_ARPGCharacter()
 	// Activate ticking in order to update the cursor every frame.
 	PrimaryActorTick.bCanEverTick = true;
 	PrimaryActorTick.bStartWithTickEnabled = true;
+
+	maxHealth = 100;
 }
 
 void ADisloyal_ARPGCharacter::Tick(float DeltaSeconds)

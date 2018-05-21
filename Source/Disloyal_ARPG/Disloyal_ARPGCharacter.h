@@ -60,6 +60,15 @@ public:
 	UPROPERTY(Editanywhere, BlueprintReadWrite)
 		int mana;
 
+	UPROPERTY(Editanywhere, BlueprintReadWrite)
+		bool equipable;
+
+	UPROPERTY(Editanywhere, BlueprintReadWrite)
+		bool useable;
+
+	UPROPERTY(Editanywhere, BlueprintReadWrite)
+		float rarity;
+
 	bool operator==(const FInventoryItem & Item) const {
 		if (ItemID == Item.ItemID)
 			return true;
@@ -162,6 +171,9 @@ public:
 	int mana;
 
 	UPROPERTY(Editanywhere, BlueprintReadWrite)
+		int maxHealth;
+
+	UPROPERTY(Editanywhere, BlueprintReadWrite)
 		FVector mousePosition;
 
 	UPROPERTY(BlueprintReadWrite, EditAnywhere)
@@ -181,10 +193,6 @@ public:
 
 	UFUNCTION(BlueprintCallable, Category = "Skills")
 	void createSkill(FName id);
-
-
-
-	
 
 private:
 	/** Top down camera */

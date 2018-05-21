@@ -2,6 +2,8 @@
 
 #include "SkillParent.h"
 #include "Disloyal_ARPG.h"
+#include "Disloyal_ARPGGameMode.h"
+#include "Disloyal_ARPGCharacter.h"
 #include <string>
 #include "Net/UnrealNetwork.h"
 #include "Item.h"
@@ -144,4 +146,34 @@ int ASkillParent::setRange(int n)
 {
 	range = n;
 	return range;
+}
+
+void ASkillParent::inheritVarFromDB(FName id)
+{
+
+	ADisloyal_ARPGGameMode* GameMode = Cast<ADisloyal_ARPGGameMode>(GetWorld()->GetAuthGameMode());
+	UDataTable* ItemTable = GameMode->GetSkillHandlerDB();
+
+	FSkillHandler* Skill = ItemTable->FindRow<FSkillHandler>(id, "");
+	if (Skill) {
+		Thumbnail = Skill->Thumbnail;
+
+		SkillID = Skill->SkillID;
+
+		damage = Skill->damage;
+
+		armor = Skill->armor;
+
+		heal = Skill->heal;
+
+		mana = Skill->mana;
+
+		radius = Skill->radius;
+
+		duration = Skill->duration;
+
+		range = Skill->range;
+
+		SkillType = Skill->type;
+	}
 }

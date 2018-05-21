@@ -21,6 +21,9 @@ public:
 	UPROPERTY(BlueprintReadWrite, EditAnywhere)
 		int health;
 
+	UPROPERTY(Editanywhere, BlueprintReadWrite)
+		int maxHealth;
+
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;

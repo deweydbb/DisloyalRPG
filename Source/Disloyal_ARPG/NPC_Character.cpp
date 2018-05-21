@@ -11,6 +11,7 @@ ANPC_Character::ANPC_Character()
 	PrimaryActorTick.bCanEverTick = true;
 
 	health = 50;
+	maxHealth = 50;
 }
 
 // Called when the game starts or when spawned
