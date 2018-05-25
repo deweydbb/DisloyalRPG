@@ -18,6 +18,8 @@
 
 ADisloyal_ARPGCharacter::ADisloyal_ARPGCharacter()
 {
+	time = 0.f;
+	PreviousID = "";
 	// Set size for player capsule
 	GetCapsuleComponent()->InitCapsuleSize(42.f, 96.0f);
 
@@ -142,17 +144,64 @@ void ADisloyal_ARPGCharacter::createSkill(FName id)
 
 			FHitResult Hit;
 
+			
+			
+
+			if (id == PreviousID) {
+				if (UGameplayStatics::GetRealTimeSeconds(GetWorld()) - time > (ItemToAdd->duration)) {
+					APlayerController* PC = Cast<APlayerController>(GetController());
+
+					PC->GetHitResultUnderCursor(ECC_Visibility, false, Hit);
+
+					AActor* HitActor = Hit.GetActor();
+
+					if (HitActor->IsA(ANPC_Character::StaticClass())) {
+						ANPC_Character* HitAI = Cast<ANPC_Character>(HitActor);
+
+						HitAI->health = HitAI->health - (ItemToAdd->damage - ItemToAdd->armor * 0.2);
+						PreviousID = id;
+						time = UGameplayStatics::GetRealTimeSeconds(GetWorld());
+					}
+				}
+			}
+			else {
+				APlayerController* PC = Cast<APlayerController>(GetController());
+
+				PC->GetHitResultUnderCursor(ECC_Visibility, false, Hit);
+
+				AActor* HitActor = Hit.GetActor();
+
+				if (HitActor->IsA(ANPC_Character::StaticClass())) {
+					ANPC_Character* HitAI = Cast<ANPC_Character>(HitActor);
+
+					HitAI->health = HitAI->health - (ItemToAdd->damage - ItemToAdd->armor * 0.2);
+					PreviousID = id;
+					time = UGameplayStatics::GetRealTimeSeconds(GetWorld());
+				}
+			}					
+		}
+		if (ItemToAdd->type == 2) {
+			UWorld* const World = GetWorld();
+
+			FHitResult Hit;
+
 			APlayerController* PC = Cast<APlayerController>(GetController());
+			
 
 			PC->GetHitResultUnderCursor(ECC_Visibility, false, Hit);
 
-			AActor* HitActor = Hit.GetActor();
+			FVector SkillLoc = Hit.ImpactPoint;
 
-			if (HitActor->IsA(ANPC_Character::StaticClass())) {
-				ANPC_Character* HitAI = Cast<ANPC_Character>(HitActor);
+			FVector playerPosition = GetMesh()->GetSocketLocation("SpawnSkillShot");;
 
-				HitAI->health = HitAI->health - (ItemToAdd->damage - ItemToAdd->armor * 0.2);
-			}
+			FRotator SpawnRotation = GetActorRotation();
+			bool bNoCollisionFail = true;
+			FActorSpawnParameters ActorSpawnParams;
+			ActorSpawnParams.SpawnCollisionHandlingOverride = bNoCollisionFail ? ESpawnActorCollisionHandlingMethod::AlwaysSpawn : ESpawnActorCollisionHandlingMethod::AdjustIfPossibleButDontSpawnIfColliding;
+
+			ASkillParent* Skill = World->SpawnActor<ASkillParent>(ItemToAdd->skill, playerPosition, SpawnRotation, ActorSpawnParams);
+			Skill->SkillID = ItemToAdd->SkillID;
+			//UE_LOG(LogTemp, Warning, TEXT("Skillcreated"));
 		}
 	}
 }

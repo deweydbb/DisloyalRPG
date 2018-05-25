@@ -179,6 +179,13 @@ public:
 	UPROPERTY(BlueprintReadWrite, EditAnywhere)
 		TArray<FInventoryItem> InventoryDBArray;
 
+	float time;
+
+	FName PreviousID;
+
+	UFUNCTION(BlueprintImplementableEvent, Category = Default)
+		void RotateCharToMouse();
+
 	// Called every frame.
 	virtual void Tick(float DeltaSeconds) override;
 
@@ -193,6 +200,7 @@ public:
 
 	UFUNCTION(BlueprintCallable, Category = "Skills")
 	void createSkill(FName id);
+
 
 private:
 	/** Top down camera */

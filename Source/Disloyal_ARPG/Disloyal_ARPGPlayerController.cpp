@@ -1,5 +1,7 @@
 // Copyright 1998-2017 Epic Games, Inc. All Rights Reserved.
 #include "Disloyal_ARPGPlayerController.h"
+#include "Disloyal_ARPGCharacter.h"
+#include "Kismet/KismetMathLibrary.h"
 #include "Item.h"
 #include "AI/Navigation/NavigationSystem.h"
 #include "Runtime/Engine/Classes/Components/DecalComponent.h"
@@ -60,6 +62,7 @@ AActor* ADisloyal_ARPGPlayerController::GetMousedOverPawn()
 		return NULL;
 	}
 }
+
 
 
 
