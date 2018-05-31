@@ -26,6 +26,8 @@ public:
 	UFUNCTION(BlueprintCallable, Category = ActorHit)
 		AActor* GetMousedOverPawn();
 
+	UPROPERTY(Editanywhere, BlueprintReadWrite)
+		bool shouldRotate;
 
 protected:
 	/** True if the controlled character should navigate to the mouse cursor. */

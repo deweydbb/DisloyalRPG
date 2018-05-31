@@ -207,16 +207,6 @@ void ADisloyal_ARPGCharacter::createSkill(FName id)
 }
 
 
-void ADisloyal_ARPGCharacter::AddToInv(AItem* selectedItem)
-{
-	Inventory.Push(selectedItem);
-}
-
-void ADisloyal_ARPGCharacter::RemoveFromInv(AItem* selectedItem)
-{
-	Inventory.RemoveSingle(selectedItem);
-}
-
 void ADisloyal_ARPGCharacter::AddItemToInventoryById(FName ID)
 {
 	ADisloyal_ARPGGameMode* GameMode = Cast<ADisloyal_ARPGGameMode>(GetWorld()->GetAuthGameMode());

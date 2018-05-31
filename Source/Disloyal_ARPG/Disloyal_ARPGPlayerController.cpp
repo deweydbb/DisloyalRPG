@@ -11,6 +11,7 @@
 ADisloyal_ARPGPlayerController::ADisloyal_ARPGPlayerController()
 {
 	bShowMouseCursor = true;
+	shouldRotate = true;
 	DefaultMouseCursor = EMouseCursor::Crosshairs;
 }
 
@@ -71,7 +72,7 @@ void ADisloyal_ARPGPlayerController::PlayerTick(float DeltaTime)
 	Super::PlayerTick(DeltaTime);
 
 	// keep updating the destination every tick while desired
-	if (bMoveToMouseCursor)
+	if (bMoveToMouseCursor && shouldRotate)
 	{
 		MoveToMouseCursor();
 	}
