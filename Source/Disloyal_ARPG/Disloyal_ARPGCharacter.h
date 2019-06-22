@@ -3,6 +3,7 @@
 #pragma once
 #include "Item.h"
 #include "CoreMinimal.h"
+#include "SkillParent.h"
 #include "GameFramework/Character.h"
 #include "Engine/DataTable.h"
 #include "Disloyal_ARPGCharacter.generated.h"
@@ -178,6 +179,9 @@ public:
 
 	UPROPERTY(BlueprintReadWrite, EditAnywhere)
 		TArray<FInventoryItem> InventoryDBArray;
+
+	UPROPERTY(EditDefaultsOnly, Category = Projectile)
+		TSubclassOf<class ASkillParent> autoAttack;
 
 	float time;
 

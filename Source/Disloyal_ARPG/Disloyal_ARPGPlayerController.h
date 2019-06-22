@@ -29,6 +29,9 @@ public:
 	UPROPERTY(Editanywhere, BlueprintReadWrite)
 		bool shouldRotate;
 
+	UPROPERTY(Editanywhere, BlueprintReadWrite)
+		FVector Dir;
+
 protected:
 	/** True if the controlled character should navigate to the mouse cursor. */
 	uint32 bMoveToMouseCursor : 1;

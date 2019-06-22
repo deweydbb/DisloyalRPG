@@ -87,6 +87,8 @@ public:
 	UPROPERTY(Editanywhere, BlueprintReadWrite)
 		int SkillType;
 
+	UFUNCTION(BlueprintImplementableEvent, Category = roation)
+		void rotateToMouse();
 	
 
 public:	

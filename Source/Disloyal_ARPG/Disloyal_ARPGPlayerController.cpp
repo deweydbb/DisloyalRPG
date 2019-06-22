@@ -3,6 +3,7 @@
 #include "Disloyal_ARPGCharacter.h"
 #include "Kismet/KismetMathLibrary.h"
 #include "Item.h"
+#include "SkillParent.h"
 #include "AI/Navigation/NavigationSystem.h"
 #include "Runtime/Engine/Classes/Components/DecalComponent.h"
 #include "HeadMountedDisplayFunctionLibrary.h"
@@ -108,7 +109,10 @@ void ADisloyal_ARPGPlayerController::MoveToMouseCursor()
 		{
 			if (MyPawn->GetCursorToWorld())
 			{
-				UNavigationSystem::SimpleMoveToLocation(this, MyPawn->GetCursorToWorld()->GetComponentLocation());
+				//UNavigationSystem::SimpleMoveToLocation(this, MyPawn->GetCursorToWorld()->GetComponentLocation());
+
+				
+				
 			}
 		}
 	}
@@ -121,7 +125,31 @@ void ADisloyal_ARPGPlayerController::MoveToMouseCursor()
 		if (Hit.bBlockingHit)
 		{
 			// We hit something, move there
-			SetNewMoveDestination(Hit.ImpactPoint);
+			//SetNewMoveDestination(Hit.ImpactPoint);
+
+			if (ADisloyal_ARPGCharacter* MyPawn = Cast<ADisloyal_ARPGCharacter>(GetPawn()))
+			{
+				/*UWorld* const World = GetWorld();
+				FHitResult TraceHitResult;
+
+				FVector SkillLoc = TraceHitResult.ImpactPoint;
+
+				FRotator SpawnRotation = UKismetMathLibrary::FindLookAtRotation(MyPawn->GetActorLocation(), TraceHitResult.Location);
+				
+				FRotator RealSpawnRotation = FRotator(0, SpawnRotation.Yaw, 0);
+
+				FVector playerPosition = MyPawn->GetActorLocation();
+				bool bNoCollisionFail = true;
+				FActorSpawnParameters ActorSpawnParams;
+				ActorSpawnParams.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
+				//ASkillParent* autoProjectileAttack = World->SpawnActor<ASkillParent>(MyPawn->autoAttack, playerPosition, RealSpawnRotation, ActorSpawnParams);
+
+				if (autoProjectileAttack) {
+					Dir = Hit.Location - MyPawn->GetActorLocation();
+					autoProjectileAttack->rotateToMouse();
+					
+				}*/
+			}
 		}
 	}
 }

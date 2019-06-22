@@ -93,6 +93,8 @@ void ADisloyal_ARPGCharacter::Tick(float DeltaSeconds)
 			FRotator CursorR = CursorFV.Rotation();
 			CursorToWorld->SetWorldLocation(TraceHitResult.Location);
 			CursorToWorld->SetWorldRotation(CursorR);
+
+			
 		}
 	}
 }
